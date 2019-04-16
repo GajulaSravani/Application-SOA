@@ -1,0 +1,27 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="BPELProcess"
+     targetNamespace="http://xmlns.oracle.com/Automation/Template/BPELProcess"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:client="http://xmlns.oracle.com/Automation/Template/BPELProcess"
+     xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype"
+     xmlns:ns1="http://schemas.oracle.com/fault/faultValidation"
+    >
+    <plnk:partnerLinkType name="BPELProcess">
+        <plnk:role name="BPELProcessProvider" portType="client:BPELProcess"/>
+    </plnk:partnerLinkType>
+    <wsdl:import namespace="http://schemas.oracle.com/fault/faultValidation" location="FaultValidation.wsdl"/>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/Automation/Template/BPELProcess" schemaLocation="../Schemas/BPELProcess.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="BPELProcessRequestMessage">
+        <wsdl:part name="payload" element="client:process"/>
+    </wsdl:message>
+    <wsdl:portType name="BPELProcess">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:BPELProcessRequestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

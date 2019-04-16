@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ikea.com"
+            targetNamespace="http://www.ikea.com" elementFormDefault="qualified">
+  <xsd:element name="ErrorTree">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="Error" minOccurs="0" maxOccurs="unbounded">
+          <xsd:complexType>
+            <xsd:sequence>
+              <xsd:element name="ErrorCode" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+              <xsd:element name="ErrorType" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+              <xsd:element name="StackTrace" minOccurs="0" maxOccurs="1" type="xsd:string"/>
+            </xsd:sequence>
+          </xsd:complexType>
+        </xsd:element>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

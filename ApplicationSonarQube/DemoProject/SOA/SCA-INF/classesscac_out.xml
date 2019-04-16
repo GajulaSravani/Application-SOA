@@ -1,0 +1,23 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Faults>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='import'][2]</loc>
+      <line>36</line>
+      <col/>
+      <file>BPEL/BPELProcess.bpel</file>
+      <name>BPEL/BPELProcess.bpel</name>
+      <fix>You have stumbled onto a BPEL 2.0 validator bug. Please send us a test case to fix this problem.</fix>
+      <msg>Validator error on &lt;bpel:import> while running rule "ImportValidator.CheckNamespaceOfImport.8" - exception "oracle.mds.exception.MDSException: MDS-00054: The file to be loaded oramds:/apps/WSDL/FaultValidation.wsdl does not exist." near (AbstractOraMDSURLConnection.java:738).</msg>
+   </Fault>
+   <Fault>
+      <severity>warning</severity>
+      <loc>/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='process']/*[namespace-uri()='http://docs.oasis-open.org/wsbpel/2.0/process/executable'][local-name()='import'][2]</loc>
+      <line>36</line>
+      <col/>
+      <file>BPEL/BPELProcess.bpel</file>
+      <name>BPEL/BPELProcess.bpel</name>
+      <fix>Check location "oramds:/apps/WSDL/FaultValidation.wsdl" and import type "http://schemas.xmlsoap.org/wsdl/"</fix>
+      <msg>Cannot import type "http://schemas.xmlsoap.org/wsdl/" from location "oramds:/apps/WSDL/FaultValidation.wsdl"</msg>
+   </Fault>
+</Faults>

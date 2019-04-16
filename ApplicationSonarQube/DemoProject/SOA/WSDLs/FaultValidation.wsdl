@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions name="FaultValidation" targetNamespace="http://schemas.oracle.com/fault/faultValidation" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:error="http://www.ikea.com">
+<types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+<import namespace="http://www.ikea.com" schemaLocation="../Schemas/ErrorInfo.xsd"/>
+</schema>
+</types>
+<message name="FaultValidationMessage">
+<part name="Error" element="error:ErrorTree"/>
+</message>
+</definitions>
