@@ -9,7 +9,7 @@
   Purpose: One Way BPEL Process
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 -->
-<process name="BPELProcess1"
+<process name="BPELProcess"
                targetNamespace="http://xmlns.oracle.com/Automation/Template/BPELProcess"
                xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
                xmlns:client="http://xmlns.oracle.com/Automation/Template/BPELProcess"
