@@ -22,7 +22,7 @@
   </service>
   <property name="compositeID" type="xs:string" many="false">14091147-03fb-429b-aca6-a1c6147d3e1c</property>
   <property name="productVersion" type="xs:string" many="false">12.2.1.0.0.151013</property>
-  <component name="BPELProcess" version="1.0">
+  <component name="BPELProcess" version="1.1">
     <implementation.bpel src="BPEL/BPELProcess.bpel"/>
     <componentType>
       <service name="bpelprocess_client" ui:wsdlLocation="WSDLs/BPELProcess.wsdl">
