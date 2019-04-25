@@ -1,0 +1,281 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Tue Sep 19 13:20:17 IST 2017
+  Author:  sragajul
+  Type: BPEL 2.0 Process
+  Purpose: One Way BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="BPELProcess1"
+               targetNamespace="http://xmlns.oracle.com/Automation/Template/BPELProcess"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/Automation/Template/BPELProcess"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/jms/Automation/Template/FaultProducerJMS"
+         xmlns:ns2="http://schemas.oracle.com/fault/faultValidation"
+         xmlns:oraext="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.ExtFunc"
+         xmlns:bpm="http://xmlns.oracle.com/bpmn20/extensions"
+         xmlns:xp20="http://www.oracle.com/XSL/Transform/java/oracle.tip.pc.services.functions.Xpath20"
+         xmlns:ess="http://xmlns.oracle.com/scheduler" xmlns:hwf="http://xmlns.oracle.com/bpel/workflow/xpath"
+         xmlns:xref="http://www.oracle.com/XSL/Transform/java/oracle.tip.xref.xpath.XRefXPathFunctions"
+         xmlns:dvm="http://www.oracle.com/XSL/Transform/java/oracle.tip.dvm.LookupValue"
+         xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+         xmlns:xdk="http://schemas.oracle.com/bpel/extension/xpath/function/xdk"
+         xmlns:ids="http://xmlns.oracle.com/bpel/services/IdentityService/xpath"
+         xmlns:ldap="http://schemas.oracle.com/xpath/extension/ldap" xmlns:ns3="http://www.ikea.com"
+         xmlns:ns4="http://www.ikea.com/cusis/error">
+  <import namespace="http://schemas.oracle.com/fault/faultValidation" location="../WSDLs/FaultValidation.wsdl"
+          importType="http://schemas.xmlsoap.org/wsdl/"/>
+  <import namespace="http://schemas.oracle.com/fault/faultValidation" location="oramds:/apps/WSDL/FaultValidation.wsdl"
+          importType="http://schemas.xmlsoap.org/wsdl/"/>
+  <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/Automation/Template/BPELProcess" location="../WSDLs/BPELProcess.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="bpelprocess_client" partnerLinkType="client:BPELProcess" myRole="BPELProcessProvider"/>
+    <partnerLink name="FaultProducerJMS" partnerLinkType="ns1:Produce_Message_plt" partnerRole="Produce_Message_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:BPELProcessRequestMessage"/>
+    <variable name="VarTechnicalFault" messageType="ns2:FaultValidationMessage"/>
+    <variable name="VarBusinessFault" messageType="ns2:FaultValidationMessage"/>
+    <variable name="InvokeFaultProducer_Produce_Message_InputVariable" messageType="ns1:Produce_Message_msg"/>
+  </variables>
+  <faultHandlers>
+    <catch faultName="ns2:CatchTechnicalFault" faultVariable="varTechnicalFault"
+           faultMessageType="ns2:FaultValidationMessage">
+      <sequence name="Sequence2">
+        <assign name="AssignCatchTechnicalFault">
+          <copy>
+            <from>'ID'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:businessTransactionID</to>
+          </copy>
+          <copy>
+            <from>ora:getComponentInstanceId()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:instanceID</to>
+          </copy>
+          <copy>
+            <from>ora:getCompositeName()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:faultingServiceName</to>
+          </copy>
+          <copy>
+            <from>'Env ID'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:environmentID</to>
+          </copy>
+          <copy>
+            <from>xp20:current-dateTime()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:reportDateTime</to>
+          </copy>
+          <copy>
+            <from>'Source'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:sourceSystem</to>
+          </copy>
+          <copy>
+            <from>'Target'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:targetSystem</to>
+          </copy>
+          <copy>
+            <from>'XXX'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:flow</to>
+          </copy>
+          <copy>
+            <from>ora:getApplicationName()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:application</to>
+          </copy>
+          <copy>
+            <from>'INDIA'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:country</to>
+          </copy>
+        </assign>
+        <invoke name="InvokeFaultProducer" partnerLink="FaultProducerJMS" portType="ns1:Produce_Message_ptt"
+                operation="Produce_Message" inputVariable="InvokeFaultProducer_Produce_Message_InputVariable"
+                bpelx:invokeAsDetail="no"/>
+        <exit name="ExitTechnicalFault"/>
+      </sequence>
+    </catch>
+    <catch bpelx:name="CatchTechnicalFault" faultName="ns2:CatchBusinessFault" faultVariable="VarBusinessFault"
+           faultMessageType="ns2:FaultValidationMessage">
+      <sequence name="Sequence1">
+        <assign name="AssignCatchBusinessFault">
+          <copy>
+            <from>'ID'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:businessTransactionID</to>
+          </copy>
+          <copy>
+            <from>ora:getComponentInstanceId()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:instanceID</to>
+          </copy>
+          <copy>
+            <from>ora:getCompositeName()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:faultingServiceName</to>
+          </copy>
+          <copy>
+            <from>'EnvID'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:environmentID</to>
+          </copy>
+          <copy>
+            <from>xp20:current-dateTime()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:reportDateTime</to>
+          </copy>
+          <copy>
+            <from>'Source'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:sourceSystem</to>
+          </copy>
+          <copy>
+            <from>'Target'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:targetSystem</to>
+          </copy>
+          <copy>
+            <from>'XXX'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:flow</to>
+          </copy>
+          <copy>
+            <from>ora:getApplicationName()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:application</to>
+          </copy>
+          <copy>
+            <from>'INDIA'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:country</to>
+          </copy>
+        </assign>
+        <invoke name="InvokeFaultProducer" partnerLink="FaultProducerJMS" portType="ns1:Produce_Message_ptt"
+                operation="Produce_Message" inputVariable="InvokeFaultProducer_Produce_Message_InputVariable"
+                bpelx:invokeAsDetail="no"/>
+        <exit name="ExitBusinessFault"/>
+      </sequence>
+    </catch>
+    <catchAll>
+      <sequence name="Sequence3">
+        <assign name="AssignCatchAll">
+          <copy>
+            <from>'ID'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:businessTransactionID</to>
+          </copy>
+          <copy>
+            <from>ora:getComponentInstanceId()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:instanceID</to>
+          </copy>
+          <copy>
+            <from>ora:getCompositeName()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:faultingServiceName</to>
+          </copy>
+          <copy>
+            <from>'Env ID'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:environmentID</to>
+          </copy>
+          <copy>
+            <from>xp20:current-dateTime()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:reportDateTime</to>
+          </copy>
+          <copy>
+            <from>'Source'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:sourceSystem</to>
+          </copy>
+          <copy>
+            <from>'Target'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:targetSystem</to>
+          </copy>
+          <copy>
+            <from>'XXX'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:flow</to>
+          </copy>
+          <copy>
+            <from>ora:getApplicationName()</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:application</to>
+          </copy>
+          <copy>
+            <from>'INDIA'</from>
+            <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:country</to>
+          </copy>
+        </assign>
+        <invoke name="InvokeFaultProducer" partnerLink="FaultProducerJMS" portType="ns1:Produce_Message_ptt"
+                operation="Produce_Message" inputVariable="InvokeFaultProducer_Produce_Message_InputVariable"
+                bpelx:invokeAsDetail="no"/>
+        <exit name="ExitCatchAll"/>
+      </sequence>
+    </catchAll>
+  </faultHandlers>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in BPELProcess.wsdl) -->
+    <receive name="receiveInput" partnerLink="bpelprocess_client" portType="client:BPELProcess" operation="process" variable="inputVariable" createInstance="yes"/>
+    <scope name="ScopeTechnicalFault">
+      <faultHandlers>
+        <catchAll>
+          <sequence name="SequenceTechnicalFault">
+            <assign name="AssignTechnicalFault">
+              <copy>
+                <from>'XX_TE_YYYY_1001'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$VarTechnicalFault.Error/ns3:Error/ns3:ErrorCode</to>
+              </copy>
+              <copy>
+                <from>'TechnicalError'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$VarTechnicalFault.Error/ns3:Error/ns3:ErrorType</to>
+              </copy>
+              <copy>
+                <from>ora:getFaultAsString()</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$VarTechnicalFault.Error/ns3:Error/ns3:StackTrace</to>
+              </copy>
+            </assign>
+            <throw name="ThrowTechnicalFault" faultName="ns2:CatchTechnicalFault" faultVariable="VarTechnicalFault"/>
+          </sequence>
+        </catchAll>
+      </faultHandlers>
+      <empty name="Empty1"/>
+    </scope>
+    <scope name="ScopeBusinessFault">
+      <faultHandlers>
+        <catchAll>
+          <sequence name="SequenceBusinessFault">
+            <assign name="AssignBusinessFault">
+              <copy>
+                <from>'XX_BE_YYYY_1002'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$VarBusinessFault.Error/ns3:Error/ns3:ErrorCode</to>
+              </copy>
+              <copy>
+                <from>'Business Fault'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$VarBusinessFault.Error/ns3:Error/ns3:ErrorType</to>
+              </copy>
+              <copy>
+                <from>'Business Error'</from>
+                <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$VarBusinessFault.Error/ns3:Error/ns3:StackTrace</to>
+              </copy>
+            </assign>
+            <throw name="ThrowBusinessFault" faultName="ns2:CatchBusinessFault" faultVariable="VarBusinessFault"/>
+          </sequence>
+        </catchAll>
+      </faultHandlers>
+      <empty name="Empty2"/>
+    </scope>
+  </sequence>
+</process>
