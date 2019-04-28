@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="windows-1252" ?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ikea.com"
+<schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ikea.com"
             targetNamespace="http://www.ikea.com" elementFormDefault="qualified">
   <xsd:element name="ErrorTree">
     <xsd:complexType>
@@ -16,4 +16,4 @@
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
-</xsd:schema>
+</schema>
