@@ -68,7 +68,7 @@
     <catch faultName="ns2:CatchTechnicalFault" faultVariable="varTechnicalFault"
            faultMessageType="ns2:FaultValidationMessage">
       <sequence name="Sequence2">
-        <assign name="NotAssignCatchTechnicalFault">
+        <assign name="AssignCatchTechnicalFault">
           <copy>
             <from>'ID'</from>
             <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:businessTransactionID</to>
@@ -169,7 +169,7 @@
     </catch>
     <catchAll>
       <sequence name="Sequence3">
-        <assign name="NotAssignCatchAll">
+        <assign name="AssignCatchAll">
           <copy>
             <from>'ID'</from>
             <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:businessTransactionID</to>
