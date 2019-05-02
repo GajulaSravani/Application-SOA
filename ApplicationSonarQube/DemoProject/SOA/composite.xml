@@ -41,7 +41,7 @@
    <reference name="InvokeInboundRetriggerService"
              ui:wsdlLocation="oramds:/apps/PBI/CGS/Inbound/WSDL/InboundRetriggerService.wsdl">
     <interface.wsdl interface="http://xmlns.ikea-cusis.com/cgs/soa/InboundRetrigger#wsdl.interface(InboundRetrigger_ptt)"/>
-    <binding.ws port="http://xmlns.ikea-cusis.com/cgs/soa/InboundRetrigger#wsdl.endpoint(InboundRetriggerService/InboundRetrigger_pt)" location="http:/apps/PBI/CGS/Inbound/WSDL/InboundRetriggerService.wsdl"/>
+    <binding.ws port="http://xmlns.ikea-cusis.com/cgs/soa/InboundRetrigger#wsdl.endpoint(InboundRetriggerService/InboundRetrigger_pt)" location="oramds:/apps/PBI/CGS/Inbound/WSDL/InboundRetriggerService.wsdl"/>
   </reference>
   <wire>
     <source.uri>bpelprocess_client_ep</source.uri>
