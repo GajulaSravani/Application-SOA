@@ -9,7 +9,7 @@
   Purpose: One Way BPEL Process
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 -->
-<process name="BPELProcess"
+<process name="BPELProcess1"
                targetNamespace="http://xmlns.oracle.com/Automation/Template/BPELProcess"
                xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
                xmlns:client="http://xmlns.oracle.com/Automation/Template/BPELProcess"
@@ -68,7 +68,7 @@
     <catch faultName="ns2:CatchTechnicalFault" faultVariable="varTechnicalFault"
            faultMessageType="ns2:FaultValidationMessage">
       <sequence name="Sequence2">
-        <assign name="CatchAssignCatchTechnicalFault">
+        <assign name="AssignCatchTechnicalFault">
           <copy>
             <from>'ID'</from>
             <to expressionLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">$InvokeFaultProducer_Produce_Message_InputVariable.body/ns4:ErrorLog/ns4:businessTransactionID</to>
