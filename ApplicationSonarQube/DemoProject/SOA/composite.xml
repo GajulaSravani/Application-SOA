@@ -18,7 +18,7 @@
           importType="wsdl"/>
   <service name="bpelprocess_client_ep" ui:wsdlLocation="WSDLs/BPELProcess.wsdl">
     <interface.wsdl interface="http://xmlns.oracle.com/Automation/Template/BPELProcess#wsdl.interface(BPELProcess)"/>
-    <binding.ws port="http://xmlns.oracle.com/Automation/Template/BPELProcess#wsdl.endpoint(bpelprocess_client_ep/BPELProcess_pt)"/>
+    <binding.ws port="http://xmlns.oracle.com/Automation/Template/BPELProcess#wsdl.endpoint(bpelprocess_client_ep/BPELProcess_pt)" location="WSDLs/BPELProcess.wsdl"/>
   </service>
   <property name="compositeID" type="xs:string" many="false">14091147-03fb-429b-aca6-a1c6147d3e1c</property>
   <property name="productVersion" type="xs:string" many="false">12.2.1.0.0.151013</property>
