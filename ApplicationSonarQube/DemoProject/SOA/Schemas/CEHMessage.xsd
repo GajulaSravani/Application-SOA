@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="windows-1252" ?>
-<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ikea.com/cusis/error"
+<xs:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.ikea.com/cusis/error"
             targetNamespace="http://www.ikea.com/cusis/error" elementFormDefault="qualified">
-  <xsd:element name="CreateErrorLog">
-    <xsd:annotation>
-      <xsd:documentation>A sample element</xsd:documentation>
-    </xsd:annotation>
-    <xsd:complexType>
-      <xsd:sequence>
-        <xsd:element name="ErrorLog" minOccurs="0" maxOccurs="unbounded">
-          <xsd:complexType>
-            <xsd:sequence>
-              <xsd:element name="businessTransactionID" minOccurs="0" maxOccurs="1" type="xsd:string"/>
-              <xsd:element name="instanceID" minOccurs="0" maxOccurs="1" type="xsd:string"/>
-              <xsd:element name="faultingServiceName" minOccurs="0" maxOccurs="1" type="xsd:string"/>
-              <xsd:element name="environmentID" minOccurs="0" maxOccurs="1" type="xsd:string"/>
-              <xsd:element name="reportDateTime" minOccurs="0" maxOccurs="1" type="xsd:string"/>
-              <xsd:element name="sourceSystem" minOccurs="0" maxOccurs="1" type="xsd:string"/>
-              <xsd:element name="targetSystem" minOccurs="0" maxOccurs="1" type="xsd:string"/>
-              <xsd:element name="flow" minOccurs="0" maxOccurs="1" type="xsd:string"/>
-              <xsd:element name="application" minOccurs="0" maxOccurs="1" type="xsd:string"/>
-              <xsd:element name="country" minOccurs="0" maxOccurs="1" type="xsd:string"/>
-            </xsd:sequence>
-          </xsd:complexType>
-        </xsd:element>
-      </xsd:sequence>
-    </xsd:complexType>
-  </xsd:element>
-</xsd:schema>
+  <xs:element name="CreateErrorLog">
+    <xs:annotation>
+      <xs:documentation>A sample element</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ErrorLog" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="businessTransactionID" minOccurs="0" maxOccurs="1" type="xs:string"/>
+              <xs:element name="instanceID" minOccurs="0" maxOccurs="1" type="xs:string"/>
+              <xs:element name="faultingServiceName" minOccurs="0" maxOccurs="1" type="xs:string"/>
+              <xs:element name="environmentID" minOccurs="0" maxOccurs="1" type="xs:string"/>
+              <xs:element name="reportDateTime" minOccurs="0" maxOccurs="1" type="xs:string"/>
+              <xs:element name="sourceSystem" minOccurs="0" maxOccurs="1" type="xs:string"/>
+              <xs:element name="targetSystem" minOccurs="0" maxOccurs="1" type="xs:string"/>
+              <xs:element name="flow" minOccurs="0" maxOccurs="1" type="xs:string"/>
+              <xs:element name="application" minOccurs="0" maxOccurs="1" type="xs:string"/>
+              <xs:element name="country" minOccurs="0" maxOccurs="1" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
