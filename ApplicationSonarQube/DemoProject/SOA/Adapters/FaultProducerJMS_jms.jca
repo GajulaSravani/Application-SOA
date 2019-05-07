@@ -1,4 +1,4 @@
-<adapter-config name="PublishJMS" adapter="jms" wsdlLocation="../WSDLs/FaultProducerJMS.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+<adapter-config name="FaultProducerJMS" adapter="jms" wsdlLocation="../WSDLs/FaultProducerJMS.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
   
   <connection-factory UIConnectionName="BaseDomainServer" location="eis/jms/ceh" UIJmsProvider="WLSJMS"/>
   <endpoint-interaction portType="Produce_Message_ptt" operation="Produce_Message">
