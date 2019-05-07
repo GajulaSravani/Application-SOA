@@ -10,7 +10,7 @@
     <plnk:partnerLinkType name="BPELProcess">
         <plnk:role name="BPELProcessProvider" portType="client:BPELProcess"/>
     </plnk:partnerLinkType>
-    <wsdl:import namespace="http://schemas.oracle.com/fault/faultValidation" location="http://FaultValidation.wsdl"/>
+    <wsdl:import namespace="http://schemas.oracle.com/fault/faultValidation" location="oramds:FaultValidation.wsdl"/>
     <wsdl:types>
         <schema xmlns="http://www.w3.org/2001/XMLSchema">
             <import namespace="http://xmlns.oracle.com/Automation/Template/BPELProcess" schemaLocation="../Schemas/BPELProcess.xsd"/>
